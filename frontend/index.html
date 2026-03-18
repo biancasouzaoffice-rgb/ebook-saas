@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ConverteBook</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+<div class="bg-gray-900 p-6 rounded-2xl w-full max-w-md">
+
+<h1 class="text-2xl mb-4">📚 ConverteBook</h1>
+
+<input id="email" placeholder="Email" class="w-full p-2 mb-2 text-black">
+<input id="password" type="password" placeholder="Senha" class="w-full p-2 mb-2 text-black">
+
+<button onclick="register()" class="bg-blue-500 w-full p-2 mb-2">Cadastrar</button>
+<button onclick="login()" class="bg-green-500 w-full p-2 mb-4">Login</button>
+
+<button onclick="upgrade()" class="bg-yellow-500 w-full p-2 mb-4">🔥 Virar PRO</button>
+
+<p id="status"></p>
+
+</div>
+
+<script>
+let token = '';
+
+async function register() {
+  await fetch('http://localhost:3000/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+  alert('Conta criada');
+}
+
+async function login() {
+  const res = await fetch('http://localhost:3000/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+  token = data.token;
+  alert('Login feito');
+}
+
+async function upgrade() {
+  const res = await fetch('http://localhost:3000/create-payment', {
+    method: 'POST',
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+  window.location.href = data.url;
+}
+</script>
+
+</body>
+</html>
