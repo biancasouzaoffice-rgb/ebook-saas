@@ -2,25 +2,23 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ConverteBook</title>
+<title>ConverteBook PRO</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-black text-white flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-br from-black to-gray-900 text-white flex items-center justify-center min-h-screen">
 
-<div class="bg-gray-900 p-6 rounded-2xl w-full max-w-md">
+<div class="bg-gray-800 p-6 rounded-2xl w-full max-w-md shadow-2xl">
 
-<h1 class="text-2xl mb-4">📚 ConverteBook</h1>
+<h1 class="text-3xl font-bold mb-4 text-center">📚 ConverteBook</h1>
 
-<input id="email" placeholder="Email" class="w-full p-2 mb-2 text-black">
-<input id="password" type="password" placeholder="Senha" class="w-full p-2 mb-2 text-black">
+<input id="email" placeholder="Email" class="w-full p-3 mb-2 text-black rounded">
+<input id="password" type="password" placeholder="Senha" class="w-full p-3 mb-3 text-black rounded">
 
-<button onclick="register()" class="bg-blue-500 w-full p-2 mb-2">Cadastrar</button>
-<button onclick="login()" class="bg-green-500 w-full p-2 mb-4">Login</button>
+<button onclick="register()" class="bg-blue-600 w-full p-3 mb-2 rounded">Cadastrar</button>
+<button onclick="login()" class="bg-green-600 w-full p-3 mb-4 rounded">Login</button>
 
-<button onclick="upgrade()" class="bg-yellow-500 w-full p-2 mb-4">🔥 Virar PRO</button>
-
-<p id="status"></p>
+<button onclick="upgrade()" class="bg-yellow-500 w-full p-3 rounded">🔥 Virar PRO</button>
 
 </div>
 
@@ -31,10 +29,7 @@ async function register() {
   await fetch('http://localhost:3000/register', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
+    body: JSON.stringify({ email: email.value, password: password.value })
   });
   alert('Conta criada');
 }
@@ -43,15 +38,12 @@ async function login() {
   const res = await fetch('http://localhost:3000/login', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
+    body: JSON.stringify({ email: email.value, password: password.value })
   });
 
   const data = await res.json();
   token = data.token;
-  alert('Login feito');
+  alert('Logado');
 }
 
 async function upgrade() {
